@@ -11,16 +11,27 @@ usage() {
     printf '  pak57 uninstall <package>\n'
 }
 
-if [[ $# -eq 1 ]]; then
-    action="utils"
-    name="$1"
-elif [[ $# -eq 2 ]]; then
-    action="$1"
-    name="$2"
+if [[ $# -ge 1 ]]; then
+    if [[ "$1" == "install" || "$1" == "uninstall" ]]; then
+        if [[ $# -lt 2 ]]; then
+            usage >&2
+            exit 2
+        fi
+
+        action="$1"
+        name="$2"
+        shift 2
+    else
+        action="utils"
+        name="$1"
+        shift
+    fi
 else
     usage >&2
     exit 2
 fi
+
+script_args=("$@")
 
 case "$action" in
     utils|install|uninstall)
@@ -70,7 +81,7 @@ if ! curl --fail --silent --show-error --location \
     exit 1
 fi
 
-bash "$tmp"
+bash "$tmp" "${script_args[@]}"
 status=$?
 
 if [[ "$action" != "utils" ]]; then
