@@ -31,8 +31,6 @@ else
     exit 2
 fi
 
-script_args=("$@")
-
 case "$action" in
     utils|install|uninstall)
         ;;
@@ -81,7 +79,7 @@ if ! curl --fail --silent --show-error --location \
     exit 1
 fi
 
-bash "$tmp" "${script_args[@]}"
+bash "$tmp" "$@"
 status=$?
 
 if [[ "$action" != "utils" ]]; then
