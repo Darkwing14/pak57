@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-target="$HOME/.local/bin/minifetch"
+target="$HOME/.local/bin/pak57"
 
 if [[ -e "$target" || -L "$target" ]]; then
     rm -- "$target"
-    printf 'Uninstalled minifetch from %s\n' "$target"
+    printf 'Uninstalled pak57 from %s\n' "$target"
 else
-    printf 'minifetch is not installed at %s\n' "$target"
+    printf 'pak57 is not installed at %s\n' "$target"
 fi
